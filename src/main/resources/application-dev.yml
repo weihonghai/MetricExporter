@@ -1,0 +1,41 @@
+logstash-server: # monitor logstash
+  expose: true #true or false
+  push-interval: 2000 #millisecond,This is logstash-server interval
+  logstashes:
+      - name: logstash-1
+        ip: 192.168.48.11
+        port: 9601
+      - name: logstash-2
+        ip: 192.168.48.22
+        port: 9602
+  upload-type: pull
+    push-gate-way:
+      ip: 192.168.48.55
+      port: 9091
+      push-interval: 5000 #millisecond,This is export interval
+elasticsearch-server:
+  expose: true
+  push-interval: 2000
+  elasticsearch-master:
+    ip: 192.168.48.11    #mulpty ip ,please split with ","
+    port: 9200
+    username: elastic
+    password: elastic-123456
+  upload-type: pull
+    push-gate-way:
+      ip: 192.168.48.55
+      port: 9091
+      push-interval: 5000
+kibana-server:
+  expose: true
+  push-interval: 2000
+  kibana:
+    ip: 192.168.48.11
+    port: 9200
+    username: elastic
+    password: elastic-123456
+  upload-type: pull
+    push-gate-way:
+      ip: 192.168.48.55
+      port: 9091
+      push-interval: 5000

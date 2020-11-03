@@ -1,0 +1,41 @@
+server:
+  port: 8081 # port
+spring:
+  application:
+    name: logstash-prometheus-export
+    ip: 192.168.48.1
+#   env: test #If it's a production environment，fill it prod，if test environment please fill it test
+#   security:
+#     user:
+#       name: admin
+#       password: admin
+#     exclude-path:   #The url spring security need to be ignore,separation by ","
+  profiles:
+    active: dev
+rest:
+  template:
+    connectTimeout: 15000 # rest template connection timeout (millisecond)
+    readTimeout: 5000 # rest template read timeout (millisecond)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["prometheus"] # This configuration does not require modification
+      base-path: /monitor
+  health:
+    elasticsearch:
+      enabled: false
+    rabbit:
+      enabled: false
+  server:
+    port: 20019
+  metrics:
+    tags:
+      application: soc-prometheus-audit
+      instance: 10.76.69.1:20009
+      soc_partner: soc
+      soc_solution_name: prometheus-monitor
+      upload_type: pull
+      soc_deploy_channel: aliyun
+prometheus:
+  threads_pool_size: 10
